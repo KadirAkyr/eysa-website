@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Mouahahahahahaha !</h2>
+      <h2>Y a plus de marche arrière !</h2>
+      <h3>T'es à moi pour toujours !!</h3>
+      <img src="gifs/evil.gif" alt="Kiss Sticker" class="gif-local" />
+      <div class="buttons">
+        <button class="yes" onclick="startGifAnimation()">
+          Oui je suis à toi
+        </button>
+        <button disabled class="no">Non</button>
+      </div>
+    </div>
+    <div class="gifs-container"></div>
+    <script>
+      function startGifAnimation() {
+        const container = document.querySelector(".gifs-container");
+        for (let i = 0; i < 100; i++) {
+          const gif = document.createElement("img");
+          gif.src = "gifs/evil.gif";
+          gif.className = "floating-gif";
+          gif.style.left = `${Math.random() * window.innerWidth}px`;
+          gif.style.top = `${Math.random() * window.innerHeight}px`;
+          container.appendChild(gif);
+
+          setTimeout(() => {
+            gif.remove();
+          }, 3000);
+        }
+        setTimeout(() => {
+          window.location.href = "page5.html";
+        }, 3000);
+      }
+    </script>
+    <style>
+      .gifs-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .floating-gif {
+        position: absolute;
+        width: 50px;
+        height: auto;
+        animation: floatUp 3s ease-out;
+      }
+
+      @keyframes floatUp {
+        from {
+          transform: translateY(100vh) scale(0.5);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-10vh) scale(1);
+          opacity: 0;
+        }
+      }
+    </style>
+  </body>
+</html>

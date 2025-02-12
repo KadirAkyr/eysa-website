@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Tu veux être ma valentine ?</h2>
+      <img src="gifs/kiss.gif" alt="Kiss Sticker" class="gif-local" />
+      <div class="buttons">
+        <button class="yes" onclick="startGifAnimation()">Oui</button>
+        <button
+          class="no"
+          onmouseover="moveButton()"
+          ontouchstart="moveButton()"
+        >
+          Non
+        </button>
+      </div>
+    </div>
+    <div class="gifs-container"></div>
+    <script>
+      function moveButton() {
+        const buttonNo = document.querySelector(".no");
+        const buttonYes = document.querySelector(".yes");
+        let maxX = window.innerWidth - buttonNo.offsetWidth;
+        let maxY = window.innerHeight - buttonNo.offsetHeight;
+        let randomX, randomY;
+
+        do {
+          randomX = Math.random() * maxX;
+          randomY = Math.random() * maxY;
+        } while (
+          randomX + buttonNo.offsetWidth > buttonYes.offsetLeft &&
+          randomX < buttonYes.offsetLeft + buttonYes.offsetWidth &&
+          randomY + buttonNo.offsetHeight > buttonYes.offsetTop &&
+          randomY < buttonYes.offsetTop + buttonYes.offsetHeight
+        );
+
+        buttonNo.style.position = "absolute";
+        buttonNo.style.left = `${randomX}px`;
+        buttonNo.style.top = `${randomY}px`;
+      }
+
+      function startGifAnimation() {
+        const container = document.querySelector(".gifs-container");
+        for (let i = 0; i < 100; i++) {
+          const gif = document.createElement("img");
+          gif.src = "gifs/love.gif";
+          gif.className = "floating-gif";
+          gif.style.left = `${Math.random() * window.innerWidth}px`;
+          gif.style.top = `${Math.random() * window.innerHeight}px`;
+          container.appendChild(gif);
+
+          setTimeout(() => {
+            gif.remove();
+          }, 3000);
+        }
+        setTimeout(() => {
+          window.location.href = "page2.html";
+        }, 3000);
+      }
+    </script>
+    <style>
+      .gifs-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .floating-gif {
+        position: absolute;
+        width: 50px;
+        height: auto;
+        animation: floatUp 3s ease-out;
+      }
+
+      @keyframes floatUp {
+        from {
+          transform: translateY(100vh) scale(0.5);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-10vh) scale(1);
+          opacity: 0;
+        }
+      }
+    </style>
+  </body>
+</html>
